@@ -1,7 +1,9 @@
 package umc.spring.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import umc.spring.domain.common.BaseEntity;
 
@@ -10,7 +12,9 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class MyMission extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long myMissionId;
@@ -34,4 +38,14 @@ public class MyMission extends BaseEntity {
 
     @OneToOne(mappedBy = "myMission", cascade = CascadeType.ALL)
     private Review review;
+
+    @Builder
+    public MyMission(Long myMissionId, UserProfile userId, Mission mission, String status, Date startedAt, Date completedAt) {
+        this.myMissionId = myMissionId;
+        this.userProfile = userId;
+        this.mission = mission;
+        this.status = status;
+        this.startedAt = startedAt;
+        this.completedAt = completedAt;
+    }
 }
